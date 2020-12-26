@@ -1,0 +1,24 @@
+{
+  "name": "nba-stats",
+  "version": "1.0.0",
+  "description": "Display and filter nba stats. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nba",
+    "nba",
+    "stats",
+    "sports",
+    "analytics",
+    "vue",
+    "mysql",
+    "sequelize",
+    "vue",
+    "router",
+    "ag-grid"
+  ],
+  "author": "jabramov25",
+  "license": "ISC"
+}
