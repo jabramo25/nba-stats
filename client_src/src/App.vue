@@ -19,21 +19,20 @@
       <v-btn text>
         <router-link to="/allGames">All Games</router-link>
       </v-btn>
-      <!-- <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn> -->
     </v-app-bar>
 
-    <v-main>
-      <router-view />
+    <v-main class="grey lighten-3">
+      <v-container>
+        <router-view />
+      </v-container>
     </v-main>
   </v-app>
 </template>
+
+<style lang="scss">
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+</style>
 
 <script>
 export default {

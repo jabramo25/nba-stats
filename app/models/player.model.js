@@ -24,6 +24,8 @@ module.exports = (sequelize, Sequelize) => {
         college: {
             type: Sequelize.STRING
         }
+    }, {
+        timestamps: false
     });
 
     return Player;

@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Retrieve all Player from the database.
 exports.findAll = (req, res) => {
     const title = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
     Player.findAll({ where: condition })
         .then(data => {
