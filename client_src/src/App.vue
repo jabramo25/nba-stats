@@ -1,70 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <v-app>
+    <v-app-bar app color="primary" dark flat>
+      <div class="d-flex align-center">
+        <v-img
+          alt="NBA Stats Logo"
+          class=""
+          contain
+          :src="require('./assets/nbastats.png')"
+          transition="scale-transition"
+          width="40"
+        />
+        <h2><router-link to="/">NBA Stats</router-link></h2>
+      </div>
 
-    <!-- <ag-grid-vue style="width: 500px; height: 500px;"
-                 class="ag-theme-alpine"
-                 :columnDefs="columnDefs"
-                 :rowData="rowData">
-    </ag-grid-vue> -->
-  </div>
+      <v-btn text>
+        <router-link to="/allPlayers">All Players</router-link>
+      </v-btn>
+      <v-btn text>
+        <router-link to="/allGames">All Games</router-link>
+      </v-btn>
+      <!-- <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn> -->
+    </v-app-bar>
+
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-    //import {AgGridVue} from "ag-grid-vue";
+export default {
+  name: "App",
 
-    export default {
-        name: 'App',
-        data() {
-            return {
-                columnDefs: null,
-                rowData: null
-            }
-        },
-        components: {
-            //AgGridVue
-        },
-        beforeMount() {
-            this.columnDefs = [
-                {headerName: 'Make', field: 'make'},
-                {headerName: 'Model', field: 'model'},
-                {headerName: 'Price', field: 'price'}
-            ];
+  components: {},
 
-            this.rowData = [
-                {make: 'Toyota', model: 'Celica', price: 35000},
-                {make: 'Ford', model: 'Mondeo', price: 32000},
-                {make: 'Porsche', model: 'Boxter', price: 72000}
-            ];
-        }
-    }
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style lang="scss">
-@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
-@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
