@@ -4,7 +4,13 @@
       <v-col cols="2">
         <v-sheet rounded="lg">
           <v-list color="transparent">
-            <v-list-item v-for="filter in filters" :key="filter.name" link>
+            <v-list-item
+              v-for="filter in filters"
+              :key="filter.name"
+              v-bind:class="{ 'list-item-active': filter.isActive }"
+              v-on:click="filterClicked(filter)"
+              link
+            >
               <v-list-item-content>
                 <v-list-item-title>
                   {{ filter.name }}
@@ -39,7 +45,9 @@
 </template>
 
 <script>
-import PlayerDataService from "../services/PlayerDataService";
+//import PlayerDataService from "../services/PlayerDataService";
+import AdvancedPlayerDataService from "../services/AdvancedPlayerDataService";
+
 import { AgGridVue } from "ag-grid-vue";
 
 export default {
@@ -50,43 +58,51 @@ export default {
       players: [],
       filters: [
         {
-          name: "Filter 1",
-          data: {},
+          name: "All Players (1978-2017)",
+          filter: {},
+          isActive: true,
         },
         {
           name: "Filter 2",
-          data: {},
+          filter: { GS: ">30" },
         },
         {
           name: "Filter 3",
-          data: {},
+          filter: { ThreePpct: ">0.30" },
         },
       ],
     };
   },
   methods: {
     fetchPlayerData() {
-      PlayerDataService.getAll()
+      AdvancedPlayerDataService.getAll()
         .then((response) => {
           this.players = response.data;
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);
         });
     },
+    filterClicked(data) {
+      this.setAllListItemInactive();
+      data.isActive = true;
+    },
+    setAllListItemInactive() {
+      this.filters.forEach((filter) => {
+        filter.isActive = false;
+      });
+    },
   },
 
   beforeMount() {
     this.columnDefs = [
-      { headerName: "Name", field: "name", sortable: true, filter: true },
-      { headerName: "Year Start", field: "year_start" },
-      { headerName: "Year End", field: "year_end" },
-      { headerName: "Position", field: "position" },
-      { headerName: "Height", field: "height" },
-      { headerName: "Weight", field: "weight" },
-      { headerName: "Birth Date", field: "birth_date" },
-      { headerName: "College", field: "college" },
+      { headerName: "Name", field: "Player", sortable: true, filter: true },
+      { headerName: "Year", field: "Year" },
+      { headerName: "Position", field: "Pos" },
+      { headerName: "Age", field: "Age" },
+      { headerName: "Team", field: "Tm" },
+      { headerName: "Games Played", field: "G" },
+      { headerName: "Games Started", field: "GS" },
     ];
   },
   mounted() {
