@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class AdvancedPlayerDataService {
-  getAll() {
-    return http.get("/advancedPlayers");
+  getAll(filter) {
+    return http.put("/advancedPlayers", filter);
   }
 
   get(id) {

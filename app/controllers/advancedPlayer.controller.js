@@ -1,13 +1,25 @@
 const db = require("../models");
 const AdvancedPlayer = db.advancedPlayers;
 const Op = db.Sequelize.Op;
+const _ = require("lodash");
 
 // Retrieve all Player from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.name;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    debugger;
+    console.log(req.body);
+    let whereCondition = {};
+    if (req.body && req.body.length) {
+        _.each(req.body, (filter) => {
+            whereCondition[filter.field] = { [Op[filter.operator]]: filter.value };
+        })
+    }
+    console.log(whereCondition);
 
-    AdvancedPlayer.findAll({ where: condition, order: [['YEAR', 'DESC'], ['PTS', 'DESC']] })
+    //console.log(res);
+    //const title = req.query.name;
+    //var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
+    AdvancedPlayer.findAll({ where: whereCondition, order: [['YEAR', 'DESC'], ['PTS', 'DESC']] })
         .then(data => {
             res.send(data);
         })

@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Retrieve all Players
-    router.get("/", advancedPlayers.findAll);
+    router.put("/", advancedPlayers.findAll);
 
     // Retrieve a single Player with id
     router.get("/:id", advancedPlayers.findOne);

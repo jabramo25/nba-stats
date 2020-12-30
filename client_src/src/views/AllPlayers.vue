@@ -35,6 +35,7 @@
             style="width: 100%; height: 700px"
             class="ag-theme-alpine"
             :columnDefs="columnDefs"
+            :defaultColDef="defaultColDef"
             :rowData="players"
           >
           </ag-grid-vue>
@@ -45,9 +46,8 @@
 </template>
 
 <script>
-//import PlayerDataService from "../services/PlayerDataService";
 import AdvancedPlayerDataService from "../services/AdvancedPlayerDataService";
-
+import _ from "lodash";
 import { AgGridVue } from "ag-grid-vue";
 
 export default {
@@ -55,27 +55,30 @@ export default {
   data() {
     return {
       columnDefs: null,
+      defaultColDef: null,
+      gridOptions: null,
       players: [],
       filters: [
         {
           name: "All Players (1978-2017)",
-          filter: {},
+          filter: [],
           isActive: true,
         },
         {
-          name: "Filter 2",
-          filter: { GS: ">30" },
+          name: "Started more than 30 games",
+          filter: [{ field: "GS", value: "30", operator: "gt" }],
         },
         {
-          name: "Filter 3",
-          filter: { ThreePpct: ">0.30" },
+          name: "3pt% greater than 35%",
+          importantColumns: ["ThreePpct"],
+          filter: [{ field: "ThreePpct", value: ".35", operator: "gt" }],
         },
       ],
     };
   },
   methods: {
-    fetchPlayerData() {
-      AdvancedPlayerDataService.getAll()
+    fetchPlayerData(filter = {}) {
+      AdvancedPlayerDataService.getAll(filter)
         .then((response) => {
           this.players = response.data;
         })
@@ -86,23 +89,59 @@ export default {
     filterClicked(data) {
       this.setAllListItemInactive();
       data.isActive = true;
+      //problem with getting columnDefs to update. can clear, but it always goes back to default.
+      //this.setImportantColumns(data.importantColumns);
+      this.fetchPlayerData(data.filter);
     },
     setAllListItemInactive() {
       this.filters.forEach((filter) => {
         filter.isActive = false;
       });
     },
+    setImportantColumns(columns) {
+      let self = this;
+      _.each(columns, (column) => {
+        let columnIndex = _.findIndex(self.columnDefs, { field: column });
+        //move column to just after team so its easier to see.
+        self.columnDefs.splice(2, 0, self.columnDefs.splice(columnIndex, 1)[0]);
+      });
+    },
   },
-
   beforeMount() {
+    this.defaultColDef = {
+      sortable: true,
+      filter: true,
+      resizable: true,
+      width: 100,
+    };
+    let percentFormatter = (params) => {
+      return (params.value * 100).toFixed(1) + "%";
+    };
+    let ppgGetter = (params) => {
+      return (params.data.PTS / params.data.G).toFixed(1);
+    };
     this.columnDefs = [
-      { headerName: "Name", field: "Player", sortable: true, filter: true },
+      { headerName: "Name", field: "Player", width: 200 },
       { headerName: "Year", field: "Year" },
-      { headerName: "Position", field: "Pos" },
-      { headerName: "Age", field: "Age" },
       { headerName: "Team", field: "Tm" },
-      { headerName: "Games Played", field: "G" },
-      { headerName: "Games Started", field: "GS" },
+      { headerName: "PPG", valueGetter: ppgGetter },      
+      { headerName: "G", field: "G" },
+      { headerName: "GS", field: "GS" },
+      {
+        headerName: "3pt%",
+        field: "ThreePpct",
+        valueFormatter: percentFormatter,
+      },
+      {
+        headerName: "2pt%",
+        field: "TwoPpct",
+        valueFormatter: percentFormatter,
+      },
+      {
+        headerName: "FG%",
+        field: "eFGpct",
+        valueFormatter: percentFormatter,
+      },
     ];
   },
   mounted() {
