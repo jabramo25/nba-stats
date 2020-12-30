@@ -5,21 +5,15 @@ const _ = require("lodash");
 
 // Retrieve all Player from the database.
 exports.findAll = (req, res) => {
-    debugger;
-    console.log(req.body);
     let whereCondition = {};
-    if (req.body && req.body.length) {
-        _.each(req.body, (filter) => {
+    let attributes = req.body && req.body.attributes;
+    console.log(req.body.filters)
+    if (req.body && req.body.filters) {
+        _.each(req.body.filters, (filter) => {
             whereCondition[filter.field] = { [Op[filter.operator]]: filter.value };
         })
     }
-    console.log(whereCondition);
-
-    //console.log(res);
-    //const title = req.query.name;
-    //var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-    AdvancedPlayer.findAll({ where: whereCondition, order: [['YEAR', 'DESC'], ['PTS', 'DESC']] })
+    AdvancedPlayer.findAll({ attributes: attributes, where: whereCondition, order: [['YEAR', 'DESC'], ['PTS', 'DESC']] })
         .then(data => {
             res.send(data);
         })

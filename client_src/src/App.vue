@@ -17,6 +17,9 @@
         <router-link to="/allPlayers">All Players</router-link>
       </v-btn>
       <v-btn text>
+        <router-link to="/playerComparison">Player Comparison</router-link>
+      </v-btn>
+      <v-btn text>
         <router-link to="/allGames">All Games</router-link>
       </v-btn>
     </v-app-bar>

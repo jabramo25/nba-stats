@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     fetchPlayerData(filter = {}) {
-      AdvancedPlayerDataService.getAll(filter)
+      AdvancedPlayerDataService.getAll({filters: filter})
         .then((response) => {
           this.players = response.data;
         })
