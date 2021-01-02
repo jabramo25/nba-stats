@@ -7,6 +7,13 @@ filters, along with some in grid filters. There is also a player comparison tool
 Vue app with MySQL/Express/Sequelize backend. Vuetify for component library, ag-grid for grid, highcharts for charts. 
 
 
+![alt text](https://github.com/jabramo25/nba-stats/blob/main/compareTool.png?raw=true)
+
+![alt text](https://github.com/jabramo25/nba-stats/blob/main/gridTool.png?raw=true)
+
+
+
+
 ## Features to be added: ##
 * Dropdown filters
   * Above all players grid view, for more powerful filters
