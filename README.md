@@ -9,10 +9,10 @@ Vue app with MySQL/Express/Sequelize backend. Vuetify for component library, ag-
 
 ## Features to be added: ##
 * Dropdown filters
-  *Above all players grid view, for more powerful filters
-  *Completes what is not available out of the box with ag-grid
+  * Above all players grid view, for more powerful filters
+  * Completes what is not available out of the box with ag-grid
 * Ability to add more than 2 players to compare tool
-  *Maximum of 5 players
+  * Maximum of 5 players
 * Add page for searching on specific games 
   * New db table needed
   * Grid view similar to all players page
