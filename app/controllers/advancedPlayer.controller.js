@@ -7,13 +7,14 @@ const _ = require("lodash");
 exports.findAll = (req, res) => {
     let whereCondition = {};
     let attributes = req.body && req.body.attributes;
+    let orderBy = (req.body && req.body.orderBy) || [['YEAR', 'DESC'], ['PTS', 'DESC']];
     console.log(req.body.filters)
     if (req.body && req.body.filters) {
         _.each(req.body.filters, (filter) => {
             whereCondition[filter.field] = { [Op[filter.operator]]: filter.value };
         })
     }
-    AdvancedPlayer.findAll({ attributes: attributes, where: whereCondition, order: [['YEAR', 'DESC'], ['PTS', 'DESC']] })
+    AdvancedPlayer.findAll({ attributes: attributes, where: whereCondition, order: orderBy })
         .then(data => {
             res.send(data);
         })

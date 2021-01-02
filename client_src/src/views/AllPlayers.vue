@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     fetchPlayerData(filter = {}) {
-      AdvancedPlayerDataService.getAll({filters: filter})
+      AdvancedPlayerDataService.getAll({ filters: filter })
         .then((response) => {
           this.players = response.data;
         })
@@ -124,7 +124,7 @@ export default {
       { headerName: "Name", field: "Player", width: 200 },
       { headerName: "Year", field: "Year" },
       { headerName: "Team", field: "Tm" },
-      { headerName: "PPG", valueGetter: ppgGetter },      
+      { headerName: "PPG", valueGetter: ppgGetter },
       { headerName: "G", field: "G" },
       { headerName: "GS", field: "GS" },
       {
@@ -142,6 +142,7 @@ export default {
         field: "eFGpct",
         valueFormatter: percentFormatter,
       },
+      { headerName: "VORP", field: "VORP" },
     ];
   },
   mounted() {

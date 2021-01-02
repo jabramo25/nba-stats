@@ -11,7 +11,7 @@
           width="40"
         />
         <h2><router-link to="/">NBA Stats</router-link></h2>
-      </div>
+    </div>
 
       <v-btn text>
         <router-link to="/allPlayers">All Players</router-link>
