@@ -1,6 +1,6 @@
 # nba-stats
 
-#NBA Stats is a project to display NBA player data, including advanced stats, from 1978-2017.  You can view the data in a grid format (built using ag-grid), with some pre-selected
+NBA Stats is a project to display NBA player data, including advanced stats, from 1978-2017.  You can view the data in a grid format, with some pre-selected
 filters, along with some in grid filters. There is also a player comparison tool where you can compare a particular stat for 2 players and see how that stat changed over their career.
 
 ## Tech Used ##
@@ -17,5 +17,5 @@ Vue app with MySQL/Express/Sequelize backend. Vuetify for component library, ag-
   * New db table needed
   * Grid view similar to all players page
 * Pagination
-  * Currently is loading all from database, should limit abd fetch on scroll
+  * Currently is loading all from database, should limit and fetch on scroll
   * Add server search
