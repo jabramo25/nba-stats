@@ -2,10 +2,21 @@
     color: white;
 }
 
+.main-toolbar a{
+    text-decoration: none;
+}
+
 .list-item-active {
     background-color: #b0d1f1;
 }
 .compare-select {
     width: 300px;
     margin-right: 20px
+}
+
+.loading-spinner{
+    position: fixed;
+    z-index: 1000;
+    left: 55%;
+    top: 45%;
 }

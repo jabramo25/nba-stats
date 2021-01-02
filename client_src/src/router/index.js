@@ -21,16 +21,6 @@ const routes = [
     name: 'playerComparison',
 
     component: () => import('../views/PlayerComparison.vue')
-  },
-  {
-    path: '/allGames',
-    name: 'allGames',
-    component: () => import('../views/AllGames.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
   }
 ]
 

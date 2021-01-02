@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="2">
+      <v-col cols="3">
         <v-sheet rounded="lg">
           <v-list color="transparent">
             <v-list-item
@@ -17,23 +17,23 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-
-            <v-divider class="my-2"></v-divider>
-
-            <v-list-item link color="grey lighten-4">
-              <v-list-item-content>
-                <v-list-item-title> Refresh </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list>
         </v-sheet>
       </v-col>
 
       <v-col>
         <v-sheet min-height="70vh" rounded="lg">
+          <v-progress-circular
+            v-if="showSpinner"
+            :size="50"
+            class="loading-spinner"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
           <ag-grid-vue
             style="width: 100%; height: 700px"
             class="ag-theme-alpine"
+            suppressNoRowsOverlay="true"
             :columnDefs="columnDefs"
             :defaultColDef="defaultColDef"
             :rowData="players"
@@ -54,6 +54,7 @@ export default {
   name: "allPlayers",
   data() {
     return {
+      showSpinner: false,
       columnDefs: null,
       defaultColDef: null,
       gridOptions: null,
@@ -78,12 +79,15 @@ export default {
   },
   methods: {
     fetchPlayerData(filter = {}) {
+      this.showSpinner = true;
       AdvancedPlayerDataService.getAll({ filters: filter })
         .then((response) => {
           this.players = response.data;
+          this.showSpinner = false;
         })
         .catch((e) => {
           console.log(e);
+          this.showSpinner = false;
         });
     },
     filterClicked(data) {

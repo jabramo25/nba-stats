@@ -1,26 +1,23 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark flat>
-      <div class="d-flex align-center">
+    <v-app-bar class="main-toolbar" app color="primary" dark flat>
+      <div class="d-flex align-center mr-3">
         <v-img
           alt="NBA Stats Logo"
-          class=""
+          class="mr-3"
           contain
           :src="require('./assets/nbastats.png')"
           transition="scale-transition"
           width="40"
         />
         <h2><router-link to="/">NBA Stats</router-link></h2>
-    </div>
+      </div>
 
       <v-btn text>
         <router-link to="/allPlayers">All Players</router-link>
       </v-btn>
       <v-btn text>
         <router-link to="/playerComparison">Player Comparison</router-link>
-      </v-btn>
-      <v-btn text>
-        <router-link to="/allGames">All Games</router-link>
       </v-btn>
     </v-app-bar>
 
